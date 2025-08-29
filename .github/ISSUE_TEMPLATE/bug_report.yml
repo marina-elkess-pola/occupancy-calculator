@@ -1,0 +1,27 @@
+name: "🐞 Bug report"
+description: Report a problem
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Be as specific as possible.
+      placeholder: "1) Open ...\n2) Click ...\n3) See error ..."
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      placeholder: "https://genfabtools.com/#/tool"
+  - type: input
+    id: file
+    attributes:
+      label: Excel file (if relevant)
+      description: If possible, share or describe the headers used.
