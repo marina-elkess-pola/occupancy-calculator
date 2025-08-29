@@ -1,0 +1,18 @@
+name: "✨ Feature request"
+description: Suggest an idea
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Use case
+      description: What are you trying to achieve?
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like the tool to do?
+  - type: textarea
+    id: alt
+    attributes:
+      label: Alternatives considered
