@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        env:
+          # CRA + GitHub Pages: ensure relative paths
+          PUBLIC_URL: .
+        run: npm run build
+
+      - name: Add CNAME and 404
+        run: |
+          echo "genfabtools.com" > build/CNAME
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; URL=/#/" /></head><body></body></html>' > build/404.html
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
+          publish_branch: gh-pages
