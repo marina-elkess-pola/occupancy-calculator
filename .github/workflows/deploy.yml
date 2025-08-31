@@ -34,9 +34,11 @@ jobs:
           echo "genfabtools.com" > build/CNAME
           echo '<!doctype html><meta http-equiv="refresh" content="0; URL=/#/">' > build/404.html
 
-      - name: Deploy to gh-pages
+      - name: Deploy to gh-pages (fresh commit each time)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build
           publish_branch: gh-pages
+          clean: true
+          force_orphan: true
