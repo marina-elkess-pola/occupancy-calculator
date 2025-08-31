@@ -4,6 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Hard-reset any old PWA/service-worker cache that may serve stale UI
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
+  if (window.caches && window.caches.keys) {
+    window.caches.keys().then(keys => keys.forEach(k => window.caches.delete(k)));
+  }
+}
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
