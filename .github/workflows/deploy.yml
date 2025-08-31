@@ -12,29 +12,21 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
-      - name: Install
-        run: npm ci
-
+      - run: npm ci
       - name: Build (CRA + relative paths)
         env:
           PUBLIC_URL: .
         run: npm run build
-
       - name: Add CNAME and 404 (hash routing + custom domain)
         run: |
           echo "genfabtools.com" > build/CNAME
           echo '<!doctype html><meta http-equiv="refresh" content="0; URL=/#/">' > build/404.html
-
-      - name: Deploy to gh-pages (fresh commit each time)
+      - name: Deploy to gh-pages (fresh each time)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
